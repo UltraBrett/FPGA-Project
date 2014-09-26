@@ -38,7 +38,7 @@
 							
 							<!-- Upload file form begin -->
 							
-							<h2>Add a new Project:</h2> 
+							<h2>Add a new project:</h2> 
 							<h2><b>Must be same name as BOTH the VHDL and UCF files:</b>
 							<form action="../scripts/newProject.php" method="post" enctype="multipart/form-data">
 								Project Name: <input name="projectName" type="text" /><br />
