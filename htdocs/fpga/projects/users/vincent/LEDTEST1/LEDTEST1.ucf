@@ -1,0 +1,14 @@
+
+
+NET "clk" LOC = L15;
+NET "LED0" LOC = U18;
+NET "LED1" LOC = M14;
+NET "LED2" LOC = N14;
+NET "LED3" LOC = L14;
+NET "LED4" LOC = M13;
+NET "LED5" LOC = D4;
+NET "LED6" LOC = P16;
+
+# PlanAhead Generated physical constraints 
+
+NET "LED7" LOC = N12;

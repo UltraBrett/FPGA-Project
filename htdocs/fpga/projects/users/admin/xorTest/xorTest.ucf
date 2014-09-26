@@ -1,0 +1,6 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "CORN" LOC = U18;
+NET "SW1" LOC = D14;
+NET "SW2" LOC = A10;
