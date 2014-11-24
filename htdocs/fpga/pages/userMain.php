@@ -28,6 +28,7 @@
 						<li><a href="userMain.php" >Project Information</a></li>
                         <li><a href="program.php" >Board and Console</a></li>
 						<li><a href="fpgaInformation.php" >Documentation</a></li>
+						<li><a href="newUser.php" >Create User</a></li>
                     </ul>
 					
                     <div class="content">

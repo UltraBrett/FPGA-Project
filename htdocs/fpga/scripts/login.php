@@ -54,10 +54,11 @@
 			//print('<META http-equiv="refresh" content="0;URL=../pages/userMain.php">');
 		} else {
 			// If the username and password is incorrect execute this block
-			print("Incorrect password!<br>");
+			//print("Incorrect password!<br>");
+			die("incorrect user/password");
 			
 			// Refresh to the page incorrectLogin.php
-			header("location:../pages/incorrectLogin.php");
+			//header("location:../pages/incorrectLogin.php");
 			//print('<META http-equiv="refresh" content="0;URL=../pages/incorrectLogin.php">');
 		}
 		
@@ -65,10 +66,11 @@
 		$dbh = null;
 	} else {
 		// If BOTH username and password are not in the fields execute this block
-		print("Both values should be submitted!<br>");
+		die("Both values shouls be submitted!<BR>");
+		//print("Both values should be submitted!<br>");
 		
 		// Refresh to the page incorrectLogin.php
-		header("location:../pages/incorrectLogin.php");
+		//header("location:../pages/incorrectLogin.php");
 		//print('<META http-equiv="refresh" content="0;URL=../pages/incorrectLogin.php">');
 	}
 ?>
