@@ -50,7 +50,7 @@
 			$_SESSION['username'] = $username;			
 			
 			// refresh to the main page
-			header("location:../pages/userMain.php");
+			header("location:../pages/queue.php");
 			//print('<META http-equiv="refresh" content="0;URL=../pages/userMain.php">');
 		} else {
 			// If the username and password is incorrect execute this block

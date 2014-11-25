@@ -34,7 +34,8 @@
 								Username: <input type="text" id="username" name="username"><br>
 								Password:&nbsp <input type="password" id="password" name="password"><br>
 								<br>
-								<input type="submit" value="Submit"> &nbsp &nbsp <a href="pages/newUser.php" style="text-decoration: none">New User</a>
+								<input type="submit" value="Submit"> &nbsp &nbsp 
+                                <a href="pages/newUser.php" style="text-decoration: none">New User</a>
 								<br>
 								<br>
 							</form>
