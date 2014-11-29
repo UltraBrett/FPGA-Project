@@ -28,7 +28,6 @@
 						<li><a href="userMain.php" >Project Information</a></li>
                         <li><a href="program.php" >Board and Console</a></li>
 						<li><a href="fpgaInformation.php" >Documentation</a></li>
-						<li><a href="newUser.php" >Create User</a></li>
                     </ul>
 					
                     <div class="content">
@@ -105,7 +104,7 @@
 	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
 		    	OR
 	    	include("scripts/includes/database.php");
-	    	$query = mysql_query("SELECT * FROM Queue");
+	    	$query = mysql_query("SELECT * FROM queue");
 	    	while($output = mysql_fetch_assoc($query)){
 			$baboo = $output['Baboo'];
 			$beingServed = $output['BeingServed'];
@@ -146,7 +145,7 @@
                 }
 
                 //increments by 1
-                $query = mysql_query("UPDATE Queue SET BeingServed = '" . ++$beingServed . "'");
+                $query = mysql_query("UPDATE queue SET BeingServed = '" . ++$beingServed . "'");
              ?>
 	}
 							</script>

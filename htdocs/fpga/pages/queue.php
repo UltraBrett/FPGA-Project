@@ -22,16 +22,16 @@ page and access the board at a time.-->
 	    mysql_select_db("brittlemess") or die("Couldn't find DB");
 		    OR
 	    include("scripts/includes/database.php");
-	    $query = mysql_query("SELECT * FROM Queue");
+	    $query = mysql_query("SELECT * FROM queue");
 	    while($output = mysql_fetch_assoc($query)){
 		$userId = $output['NextId'];
 		$beingServed = $output['BeingServed'];
             }
 
-	    $query = mysql_query("UPDATE Queue SET UserId = '" . ++$userId . "'");
+	    $query = mysql_query("UPDATE queue SET UserId = '" . ++$userId . "'");
 
     	    while($userId != $beingServed){
-    		$query = mysql_query("SELECT * FROM Queue");
+    		$query = mysql_query("SELECT * FROM queue");
 	    	while($output = mysql_fetch_assoc($query)){
 		    $beingServed = $output['BeingServed'];
 		}
@@ -48,13 +48,12 @@ page and access the board at a time.-->
 	    mysql_select_db("brittlemess") or die("Couldn't find DB");
 		    OR
 	    include("scripts/includes/database.php");
-	    $query = mysql_query("SELECT * FROM Queue");
+	    $query = mysql_query("SELECT * FROM queue");
 	    while($output = mysql_fetch_assoc($query)){
 		$baboo = $output['Baboo'] + $userId + ",";
             }    
 
-            $query = mysql_query("UPDATE Queue SET Baboo = '" . $baboo . "'");
-	    $dbh->exec($query);
+            $query = mysql_query("UPDATE queue SET Baboo = '" . $baboo . "'");
         ?>
     }
 </script>

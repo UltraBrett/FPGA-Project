@@ -73,7 +73,7 @@
 	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
 		    	OR
 	    	include("scripts/includes/database.php");
-	    	$query = mysql_query("SELECT * FROM Queue");
+	    	$query = mysql_query("SELECT * FROM queue");
 	    	while($output = mysql_fetch_assoc($query)){
 			$baboo = $output['Baboo'];
 			$beingServed = $output['BeingServed'];
@@ -114,7 +114,7 @@
                 }
 
                 //increments by 1
-                $query = mysql_query("UPDATE Queue SET BeingServed = '" . ++$beingServed . "'");
+                $query = mysql_query("UPDATE queue SET BeingServed = '" . ++$beingServed . "'");
              ?>
 	}
     </script>
