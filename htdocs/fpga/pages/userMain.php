@@ -16,10 +16,10 @@
 		
         </head>
         
-        <body>
+        <body onunload="Logout()">
             <div class="container"> 
                 <div class="bannerArea">			
-                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" style="text-decoration: none">Logout</a></div>
+                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
                     <div class="toplogo"><a href="#"><img src="../images/Xilinx-logo.jpg" width="365" height="90" border="0" /></a></div>
                 </div>
                 <div class="contentArea">
@@ -88,17 +88,34 @@
 							</div>
 
 							<script language="JavaScript">
-								function Display(id)
-								{
-									if(document.getElementById(id).style.display == 'none')
-									{
-										document.getElementById(id).style.display='block';
-									}
-									else
-									{
-										document.getElementById(id).style.display = 'none';
-									}
-								}
+							    function Display(id) {
+							        if (document.getElementById(id).style.display == 'none') {
+							            document.getElementById(id).style.display = 'block';
+							        }
+							        else {
+							            document.getElementById(id).style.display = 'none';
+							        }
+							    }
+
+							    function Logout() {
+                                    <?php
+                                        //connects to db
+                                        chown("FPGAServer.sqlite", "Administrator");
+	                                    chmod("FPGAServer.sqlite", 0777);
+	                                    $dbh = new PDO("sqlite:FPGAServer.sqlite");
+
+                                        //gets the currently being served id
+                                        $query = 'SELECT "BeingServed" FROM "Queue"';
+	                                    $result = $dbh->query($query);
+	                                    $output = $result->fetch();
+                                        $beingServed = $output['BeingServed'];
+
+                                        //increments by 1
+                                        $query = 'UPDATE "Queue" SET "BeingServed" = "' . ++$beingServed . '"  ';
+	                                    $dbh->exec($query);
+                                    ?>
+							    }    
+
 							</script>
 						</div>
 						
