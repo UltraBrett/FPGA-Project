@@ -9,7 +9,7 @@ page and access the board at a time.-->
     <head>
     	<title>Queue</title>
     </head>
-    <body>
+    <body onunload="Ragequit()">
     	Please wait, you are in the queue to use the board.
     </body>
 </html>
@@ -31,13 +31,30 @@ page and access the board at a time.-->
 	    $query = 'UPDATE "Queue" SET "UserId" = "' . ++$userId . '"  ';
 	    $dbh->exec($query);
 
-	    while($userId != $output['BeingServed']){
-		$query = 'SELECT "BeingServed" FROM "Queue"';
-		$result = $dbh->query($query);
-		$output = $result->fetch();
-	    }
+    	    while($userId != $output['BeingServed']){
+    		$query = 'SELECT "BeingServed" FROM "Queue"';
+    		$result = $dbh->query($query);
+    		$output = $result->fetch();
+    	    }
 	
 	    header("location:../pages/userMain.php");
         ?>
     });
+
+    function Ragequit(){
+        <?php
+            //baboo remembers what you did
+            chown("FPGAServer.sqlite", "Administrator");
+	    chmod("FPGAServer.sqlite", 0777);
+	    $dbh = new PDO("sqlite:FPGAServer.sqlite");
+	    $query = 'SELECT "Baboo" FROM "Queue"';
+	    $result = $dbh->query($query);
+	    $output = $result->fetch();
+
+            $baboo = $output['Baboo'] + $userId + ",";
+
+            $query = 'UPDATE "Queue" SET "Baboo" = "' . $baboo . '"  ';
+	    $dbh->exec($query);
+        ?>
+    }
 </script>
