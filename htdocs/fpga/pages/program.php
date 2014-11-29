@@ -16,37 +16,55 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script>
-		/*
-		 * This script places the scrollbar of the div to the bottom in 250ms intervals. 
-		 * On the event of the scroll bar moving, the time interval will stop, haulting 
-		 * the execution of scrollDown()
-		*/ 
-		
-		// This function will scroll the overflow scrollbar down
-		var count = 0;
-		function scrollDown() {
-			// Change this value of count based on the average amount of time it takes for 
-			// a project to synthesize
-			if(count < 250) {
-				// Scroll to bottom
-				$( "div.container2" ).scrollTop( $('div.container2')[0].scrollHeight);
-			} 
+	    /*
+	    * This script places the scrollbar of the div to the bottom in 250ms intervals. 
+	    * On the event of the scroll bar moving, the time interval will stop, haulting 
+	    * the execution of scrollDown()
+	    */
 
-			// Increment count by 1
-			count = count + 1;
-		}
-		
-		// Call scrollDown in intervals of 250ms
-		var refreshId = setInterval(scrollDown, 250);
-		
+	    // This function will scroll the overflow scrollbar down
+	    var count = 0;
+	    function scrollDown() {
+	        // Change this value of count based on the average amount of time it takes for 
+	        // a project to synthesize
+	        if (count < 250) {
+	            // Scroll to bottom
+	            $("div.container2").scrollTop($('div.container2')[0].scrollHeight);
+	        }
+
+	        // Increment count by 1
+	        count = count + 1;
+	    }
+
+	    // Call scrollDown in intervals of 250ms
+	    var refreshId = setInterval(scrollDown, 250);
+
+		function Logout() {
+            <?php
+                //connects to db
+                chown("FPGAServer.sqlite", "Administrator");
+	            chmod("FPGAServer.sqlite", 0777);
+	            $dbh = new PDO("sqlite:FPGAServer.sqlite");
+
+                //gets the currently being served id
+                $query = 'SELECT "BeingServed" FROM "Queue"';
+	            $result = $dbh->query($query);
+	            $output = $result->fetch();
+                $beingServed = $output['BeingServed'];
+
+                //increments by 1
+                $query = 'UPDATE "Queue" SET "BeingServed" = "' . ++$beingServed . '"  ';
+	            $dbh->exec($query);
+             ?>
+		 }
 	</script>
 	
     </head>
         
-    <body id="mydiv">
+    <body id="mydiv" onunload="Logout()">
         <div class="container"> 
             <div class="bannerArea">			
-                <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" style="text-decoration: none">Logout</a></div>
+                <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
                 <div class="toplogo"><a href="#"><img src="../images/Xilinx-logo.jpg" width="365" height="90" border="0" /></a></div>
             </div>
             <div class="contentArea">
