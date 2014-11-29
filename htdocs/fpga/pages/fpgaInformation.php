@@ -74,10 +74,26 @@
 	            $dbh = new PDO("sqlite:FPGAServer.sqlite");
 
                 //gets the currently being served id
-                $query = 'SELECT "BeingServed" FROM "Queue"';
+                $query = 'SELECT "BeingServed", "Baboo" FROM "Queue"';
 	            $result = $dbh->query($query);
 	            $output = $result->fetch();
                 $beingServed = $output['BeingServed'];
+		$baboo = $output['Baboo'];   
+
+                //this part handles people who left during the queue
+                for($i = 0; $i < strlen($baboo); $i++){
+                	$ragequitId = "";
+                        while($baboo[$i] != ","){
+                        	$ragequitId = $ragequitId + $baboo[$i];
+                                $i++;
+                        }
+
+                        if($ragequitId == $beingServed){
+                                $i = 0;
+                                //skip that id
+                                $beingServed++;
+                        }
+                }
 
                 //increments by 1
                 $query = 'UPDATE "Queue" SET "BeingServed" = "' . ++$beingServed . '"  ';
