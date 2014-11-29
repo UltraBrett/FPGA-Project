@@ -98,40 +98,56 @@
 							    }
 
 							    function Logout() {
-                                    <?php
-                                        //connects to db
-                                        chown("FPGAServer.sqlite", "Administrator");
-	                                    chmod("FPGAServer.sqlite", 0777);
-	                                    $dbh = new PDO("sqlite:FPGAServer.sqlite");
+            <?php
+                //connects to db
+                $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
+		    	OR
+	    	include("scripts/includes/database.php");
+	    	$query = mysql_query("SELECT * FROM Queue");
+	    	while($output = mysql_fetch_assoc($query)){
+			$baboo = $output['Baboo'];
+			$beingServed = $output['BeingServed'];
+            	}    
 
-                                        //gets the currently being served id
-                                        $query = 'SELECT "BeingServed", "Baboo" FROM "Queue"';
-	                                    $result = $dbh->query($query);
-	                                    $output = $result->fetch();
-                                        $beingServed = $output['BeingServed'];
-                                        $baboo = $output['Baboo'];   
+                //this part handles people who left during the queue
+                for($i = 0; $i < strlen($baboo); $i++){
+                	$ragequitId = "";
+                        while($baboo[$i] != ","){
+                        	$ragequitId = $ragequitId + $baboo[$i];
+                                $i++;
+                        }
 
-                                        //this part handles people who left during the queue
-                                        for($i = 0; $i < strlen($baboo); $i++){
-                                            $ragequitId = "";
-                                            while($baboo[$i] != ","){
-                                                $ragequitId = $ragequitId + $baboo[$i];
-                                                $i++;
-                                            }
+                        if($ragequitId == $beingServed){
+                                $i = 0;
+				$newBaboo = "";		
+                                //skip that id
+                                $beingServed++;
+				//remove id from string
+				for($j = 0; $j < strlen($baboo); $j++){
+					$skipCount = 0;
+					if($baboo[$j] == $ragequitId[0]{
+						$k = $j;
+						$remove = "";
+						while($baboo[$k] != ','){
+							$skipCount++;
+							$remove = $remove + $baboo[$k];
+							$k++;
+						}
+						if($remove == $ragequitId){
+							$skipCount++;
+							$j = $j + $skipcount;
+						}
+					}
+					$newBaboo = $newBaboo + $baboo[j];
+				}
+                        }
+                }
 
-                                            if($ragequitId == $beingServed){
-                                                $i = 0;
-                                                //skip that id
-                                                $beingServed++;
-                                            }
-                                        }
-
-                                        //increments by 1
-                                        $query = 'UPDATE "Queue" SET "BeingServed" = "' . ++$beingServed . '"  ';
-	                                    $dbh->exec($query);
-                                    ?>
-							    }    
-
+                //increments by 1
+                $query = mysql_query("UPDATE Queue SET BeingServed = '" . ++$beingServed . "'");
+             ?>
+	}
 							</script>
 						</div>
 						

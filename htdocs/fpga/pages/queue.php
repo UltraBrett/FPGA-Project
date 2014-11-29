@@ -18,23 +18,23 @@ page and access the board at a time.-->
     $(document).ready(function () {
         <?php 
             //gets new id and current user id from db
-	    chown("FPGAServer.sqlite", "Administrator");
-	    chmod("FPGAServer.sqlite", 0777);
-	    $dbh = new PDO("sqlite:FPGAServer.sqlite");
-	    $query = 'SELECT "NextId", "BeingServed" FROM "Queue"';
-	    $result = $dbh->query($query);
-	    $output = $result->fetch();
+	    $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    mysql_select_db("brittlemess") or die("Couldn't find DB");
+		    OR
+	    include("scripts/includes/database.php");
+	    $query = mysql_query("SELECT * FROM Queue");
+	    while($output = mysql_fetch_assoc($query)){
+		$userId = $output['NextId'];
+		$beingServed = $output['BeingServed'];
+            }
 
-	    $userId = $output['NextId'];
-	    $beingServed = $output['BeingServed'];
+	    $query = mysql_query("UPDATE Queue SET UserId = '" . ++$userId . "'");
 
-	    $query = 'UPDATE "Queue" SET "UserId" = "' . ++$userId . '"  ';
-	    $dbh->exec($query);
-
-    	    while($userId != $output['BeingServed']){
-    		$query = 'SELECT "BeingServed" FROM "Queue"';
-    		$result = $dbh->query($query);
-    		$output = $result->fetch();
+    	    while($userId != $beingServed){
+    		$query = mysql_query("SELECT * FROM Queue");
+	    	while($output = mysql_fetch_assoc($query)){
+		    $beingServed = $output['BeingServed'];
+		}
     	    }
 	
 	    header("location:../pages/userMain.php");
@@ -44,16 +44,16 @@ page and access the board at a time.-->
     function Ragequit(){
         <?php
             //baboo remembers what you did
-            chown("FPGAServer.sqlite", "Administrator");
-	    chmod("FPGAServer.sqlite", 0777);
-	    $dbh = new PDO("sqlite:FPGAServer.sqlite");
-	    $query = 'SELECT "Baboo" FROM "Queue"';
-	    $result = $dbh->query($query);
-	    $output = $result->fetch();
+            $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    mysql_select_db("brittlemess") or die("Couldn't find DB");
+		    OR
+	    include("scripts/includes/database.php");
+	    $query = mysql_query("SELECT * FROM Queue");
+	    while($output = mysql_fetch_assoc($query)){
+		$baboo = $output['Baboo'] + $userId + ",";
+            }    
 
-            $baboo = $output['Baboo'] + $userId + ",";
-
-            $query = 'UPDATE "Queue" SET "Baboo" = "' . $baboo . '"  ';
+            $query = mysql_query("UPDATE Queue SET Baboo = '" . $baboo . "'");
 	    $dbh->exec($query);
         ?>
     }
