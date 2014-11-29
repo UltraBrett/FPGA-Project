@@ -16,37 +16,88 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script>
-		/*
-		 * This script places the scrollbar of the div to the bottom in 250ms intervals. 
-		 * On the event of the scroll bar moving, the time interval will stop, haulting 
-		 * the execution of scrollDown()
-		*/ 
-		
-		// This function will scroll the overflow scrollbar down
-		var count = 0;
-		function scrollDown() {
-			// Change this value of count based on the average amount of time it takes for 
-			// a project to synthesize
-			if(count < 250) {
-				// Scroll to bottom
-				$( "div.container2" ).scrollTop( $('div.container2')[0].scrollHeight);
-			} 
+	    /*
+	    * This script places the scrollbar of the div to the bottom in 250ms intervals. 
+	    * On the event of the scroll bar moving, the time interval will stop, haulting 
+	    * the execution of scrollDown()
+	    */
 
-			// Increment count by 1
-			count = count + 1;
-		}
-		
-		// Call scrollDown in intervals of 250ms
-		var refreshId = setInterval(scrollDown, 250);
-		
+	    // This function will scroll the overflow scrollbar down
+	    var count = 0;
+	    function scrollDown() {
+	        // Change this value of count based on the average amount of time it takes for 
+	        // a project to synthesize
+	        if (count < 250) {
+	            // Scroll to bottom
+	            $("div.container2").scrollTop($('div.container2')[0].scrollHeight);
+	        }
+
+	        // Increment count by 1
+	        count = count + 1;
+	    }
+
+	    // Call scrollDown in intervals of 250ms
+	    var refreshId = setInterval(scrollDown, 250);
+
+		function Logout() {
+            <?php
+                //connects to db
+                $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
+		    	OR
+	    	include("scripts/includes/database.php");
+	    	$query = mysql_query("SELECT * FROM Queue");
+	    	while($output = mysql_fetch_assoc($query)){
+			$baboo = $output['Baboo'];
+			$beingServed = $output['BeingServed'];
+            	}    
+
+                //this part handles people who left during the queue
+                for($i = 0; $i < strlen($baboo); $i++){
+                	$ragequitId = "";
+                        while($baboo[$i] != ","){
+                        	$ragequitId = $ragequitId + $baboo[$i];
+                                $i++;
+                        }
+
+                        if($ragequitId == $beingServed){
+                                $i = 0;
+				$newBaboo = "";		
+                                //skip that id
+                                $beingServed++;
+				//remove id from string
+				for($j = 0; $j < strlen($baboo); $j++){
+					$skipCount = 0;
+					if($baboo[$j] == $ragequitId[0]{
+						$k = $j;
+						$remove = "";
+						while($baboo[$k] != ','){
+							$skipCount++;
+							$remove = $remove + $baboo[$k];
+							$k++;
+						}
+						if($remove == $ragequitId){
+							$skipCount++;
+							$j = $j + $skipcount;
+						}
+					}
+					$newBaboo = $newBaboo + $baboo[j];
+				}
+                        }
+                }
+
+                //increments by 1
+                $query = mysql_query("UPDATE Queue SET BeingServed = '" . ++$beingServed . "'");
+             ?>
+	}
 	</script>
 	
     </head>
         
-    <body id="mydiv">
+    <body id="mydiv" onunload="Logout()">
         <div class="container"> 
             <div class="bannerArea">			
-                <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" style="text-decoration: none">Logout</a></div>
+                <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
                 <div class="toplogo"><a href="#"><img src="../images/Xilinx-logo.jpg" width="365" height="90" border="0" /></a></div>
             </div>
             <div class="contentArea">

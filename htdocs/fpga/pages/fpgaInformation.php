@@ -16,10 +16,10 @@
 		
         </head>
         
-        <body>
+        <body onunload="Logout()">
             <div class="container"> 
                 <div class="bannerArea">			
-                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" style="text-decoration: none">Logout</a></div>
+                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
                     <div class="toplogo"><a href="#"><img src="../images/Xilinx-logo.jpg" width="365" height="90" border="0" /></a></div>
                 </div>
                 <div class="contentArea">
@@ -64,3 +64,57 @@
             </div>
         </body>
     </html>
+
+    <script>
+        function Logout() {
+            <?php
+                //connects to db
+                $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
+		    	OR
+	    	include("scripts/includes/database.php");
+	    	$query = mysql_query("SELECT * FROM Queue");
+	    	while($output = mysql_fetch_assoc($query)){
+			$baboo = $output['Baboo'];
+			$beingServed = $output['BeingServed'];
+            	}    
+
+                //this part handles people who left during the queue
+                for($i = 0; $i < strlen($baboo); $i++){
+                	$ragequitId = "";
+                        while($baboo[$i] != ","){
+                        	$ragequitId = $ragequitId + $baboo[$i];
+                                $i++;
+                        }
+
+                        if($ragequitId == $beingServed){
+                                $i = 0;
+				$newBaboo = "";		
+                                //skip that id
+                                $beingServed++;
+				//remove id from string
+				for($j = 0; $j < strlen($baboo); $j++){
+					$skipCount = 0;
+					if($baboo[$j] == $ragequitId[0]{
+						$k = $j;
+						$remove = "";
+						while($baboo[$k] != ','){
+							$skipCount++;
+							$remove = $remove + $baboo[$k];
+							$k++;
+						}
+						if($remove == $ragequitId){
+							$skipCount++;
+							$j = $j + $skipcount;
+						}
+					}
+					$newBaboo = $newBaboo + $baboo[j];
+				}
+                        }
+                }
+
+                //increments by 1
+                $query = mysql_query("UPDATE Queue SET BeingServed = '" . ++$beingServed . "'");
+             ?>
+	}
+    </script>
