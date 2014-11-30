@@ -19,15 +19,15 @@
         <body onunload="Logout()">
             <div class="container"> 
                 <div class="bannerArea">			
-                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
+                    <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" style="text-decoration: none">Logout</a></div>
                     <div class="toplogo"><a href="#"><img src="../images/Xilinx-logo.jpg" width="365" height="90" border="0" /></a></div>
                 </div>
                 <div class="contentArea">
                     <ul class="leftnavigation">
 						<li><a href="../index.php" >Login</a></li>
-                        <li><a href="userMain.php" >Project Information</a></li>
-                        <li><a href="program.php" >Board and Console</a></li>
-						<li><a href="fpgaInformation.php" >Documentation</a></li>
+                        <li><a href="userMain.php" onclick="TabSwitch()" >Project Information</a></li>
+                        <li><a href="program.php" onclick="TabSwitch()" >Board and Console</a></li>
+						<li><a href="fpgaInformation.php" onclick="TabSwitch()" >Documentation</a></li>
                     </ul>
                     <div class="content">
                         <div class="contentleft">
@@ -95,5 +95,19 @@
             //increments by 1
             $query = mysql_query("UPDATE queue SET BeingServed = '" . $beingServed . "'");
             ?>
+	}
+
+	function TabSwitch(){
+		<?php
+		$connect = mysql_connect("localhost", "root","") or die("Couldn't Connect");
+	    mysql_select_db("brittlemess") or die("Couldn't find DB");
+		
+		$query = mysql_query("SELECT * FROM queue");
+	    	while($output = mysql_fetch_assoc($query)){
+				$beingServed = $output['BeingServed'];
+            }
+			$beingServed--;
+			$query = mysql_query("UPDATE queue SET BeingServed = '" . $beingServed . "'");
+		?>
 	}
     </script>
