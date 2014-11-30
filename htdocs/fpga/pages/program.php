@@ -41,53 +41,33 @@
 
 		function Logout() {
             <?php
-                //connects to db
-                $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+            //connects to db
+            $connect = mysql_connect("localhost", "root","") or die("Couldn't Connect");
 	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
-	
-	    	$query = mysql_query("SELECT * FROM queue");
+			
+			$query = mysql_query("SELECT * FROM queue");
 	    	while($output = mysql_fetch_assoc($query)){
-			$baboo = $output['Baboo'];
-			$beingServed = $output['BeingServed'];
-            	}    
+				$beingServed = $output['BeingServed'];
+            }   
 
-                //this part handles people who left during the queue
-                for($i = 0; $i < strlen($baboo); $i++){
-                	$ragequitId = "";
-                        while($baboo[$i] != ","){
-                        	$ragequitId = $ragequitId + $baboo[$i];
-                                $i++;
-                        }
+			$beingServed++;
+	
+			//Lana
+			//Lanaaaa
+			//LANAAAAAAAAAAAAA
+			//HE REMEMBERS ME
+	    	$query = mysql_query("SELECT * FROM baboo");
+	    	while($output = mysql_fetch_assoc($query)){
+				$ragequitId = $output['RagequitId'];
+				if($ragequitId <= $beingServed)
+				$beingServed++;
+				$query = mysql_query("DELETE FROM baboo WHERE RagequitId <= '" . $beingServed . "'");
+            }    
 
-                        if($ragequitId == $beingServed){
-                                $i = 0;
-				$newBaboo = "";		
-                                //skip that id
-                                $beingServed++;
-				//remove id from string
-				for($j = 0; $j < strlen($baboo); $j++){
-					$skipCount = 0;
-					if($baboo[$j] == $ragequitId[0]{
-						$k = $j;
-						$remove = "";
-						while($baboo[$k] != ','){
-							$skipCount++;
-							$remove = $remove + $baboo[$k];
-							$k++;
-						}
-						if($remove == $ragequitId){
-							$skipCount++;
-							$j = $j + $skipcount;
-						}
-					}
-					$newBaboo = $newBaboo + $baboo[j];
-				}
-                        }
-                }
-
-                //increments by 1
-                $query = mysql_query("UPDATE queue SET BeingServed = '" . ++$beingServed . "'");
-             ?>
+           
+            //increments by 1
+            $query = mysql_query("UPDATE queue SET BeingServed = '" . $beingServed . "'");
+            ?>
 	}
 	</script>
 	
