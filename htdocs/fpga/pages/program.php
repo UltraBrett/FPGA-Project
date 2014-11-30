@@ -44,8 +44,7 @@
                 //connects to db
                 $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
 	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
-		    	OR
-	    	include("scripts/includes/database.php");
+	
 	    	$query = mysql_query("SELECT * FROM queue");
 	    	while($output = mysql_fetch_assoc($query)){
 			$baboo = $output['Baboo'];

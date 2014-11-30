@@ -20,8 +20,7 @@ page and access the board at a time.-->
             //gets new id and current user id from db
 	    $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
 	    mysql_select_db("brittlemess") or die("Couldn't find DB");
-		    OR
-	    include("scripts/includes/database.php");
+
 	    $query = mysql_query("SELECT * FROM queue");
 	    while($output = mysql_fetch_assoc($query)){
 		$userId = $output['NextId'];
@@ -46,8 +45,7 @@ page and access the board at a time.-->
             //baboo remembers what you did
             $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
 	    mysql_select_db("brittlemess") or die("Couldn't find DB");
-		    OR
-	    include("scripts/includes/database.php");
+		
 	    $query = mysql_query("SELECT * FROM queue");
 	    while($output = mysql_fetch_assoc($query)){
 		$baboo = $output['Baboo'] + $userId + ",";
