@@ -18,7 +18,7 @@ page and access the board at a time.-->
     $(document).ready(function () {
         <?php 
             //gets new id and current user id from db
-	    $connect = mysql_connect("localhost", "brittlemess","password") or die("Couldn't Connecy");
+	    $connect = mysql_connect("localhost", "root","") or die("Couldn't Connect");
 	    mysql_select_db("brittlemess") or die("Couldn't find DB");
 
 	    $query = mysql_query("SELECT * FROM queue");
