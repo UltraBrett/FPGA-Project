@@ -16,7 +16,7 @@
 		
         </head>
         
-        <body onunload="Logout()">
+        <body>
             <div class="container"> 
                 <div class="bannerArea">			
                     <div class="bannernav"><?php print("User: " . $username); ?> | <a href="../index.php" onclick="Logout()" style="text-decoration: none">Logout</a></div>
@@ -87,7 +87,19 @@
 								<br><br>
 							</div>
 
-							<script language="JavaScript">
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+							<script>						
+								
+								  function Logout() {													
+									 $.ajax({
+										method: 'post',
+										url: '../scripts/logout.php',
+										success: function(data) {
+											
+										}
+									});
+								}
+								  		  															
 							    function Display(id) {
 							        if (document.getElementById(id).style.display == 'none') {
 							            document.getElementById(id).style.display = 'block';
@@ -97,36 +109,8 @@
 							        }
 							    }
 
-							    function Logout() {
-            <?php
-            //connects to db
-            $connect = mysql_connect("localhost", "root","") or die("Couldn't Connect");
-	    	mysql_select_db("brittlemess") or die("Couldn't find DB");
-			
-			$query = mysql_query("SELECT * FROM queue");
-	    	while($output = mysql_fetch_assoc($query)){
-				$beingServed = $output['BeingServed'];
-            }   
-
-			$beingServed++;
-	
-			//Lana
-			//Lanaaaa
-			//LANAAAAAAAAAAAAA
-			//HE REMEMBERS ME
-	    	$query = mysql_query("SELECT * FROM baboo");
-	    	while($output = mysql_fetch_assoc($query)){
-				$ragequitId = $output['RagequitId'];
-				if($ragequitId <= $beingServed)
-				$beingServed++;
-				$query = mysql_query("DELETE FROM baboo WHERE RagequitId <= '" . $beingServed . "'");
-            }    
-
-           
-            //increments by 1
-            $query = mysql_query("UPDATE queue SET BeingServed = '" . $beingServed . "'");
-            ?>
-	}
+							
+																							
 							</script>
 						</div>
 						

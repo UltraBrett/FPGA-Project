@@ -42,15 +42,29 @@ page and access the board at a time.-->
 	}
 	
 	window.setInterval(function(){
-		location.reload();
-	}, 10000);
+		var userId = <?php echo $userId ?>;
+		
+		$.ajax({
+			method: 'get',
+			url: "../scripts/checkServed.php",
+			success: function(result)
+			{
+				
+			   if(result == userId){
+				
+					window.location.assign("http://69.88.163.56/fpga/pages/userMain.php");
+			   }
+			}
+		});
+	}, 3000);
 	
 	window.addEventListener("beforeunload", function (e) {
-		<?php
-		//baboo remembers what you did
-		$connect = mysql_connect("localhost", "root","") or die("Couldn't Connect");
-		mysql_select_db("brittlemess") or die("Couldn't find DB"); 
-		$query = mysql_query("INSERT INTO baboo (RagequitId) VALUES ('" . $userId . "')");
-		?>
+		$.ajax({
+			type: 'post',
+			url: '../scripts/baboo',
+			data: {
+				Id: <?php echo $userId ?>
+			}
+		});
 	});
 </script>
