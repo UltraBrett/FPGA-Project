@@ -70,6 +70,15 @@
             ?>
 	}
 	</script>
+	<script language="JavaScript" type="text/javascript">
+			function executeCommands(inputparams)
+			{
+			<?php
+				$output = null;
+				$n = exec('C:\\DAS.exe', $output);
+				?>
+			}
+	</script>
 	
     </head>
         
@@ -99,6 +108,55 @@
 							src="http://69.88.163.56:8080/">
 						</iframe>
 						<!-- Part 2 description -->
+						
+						<!-- Extended I/O section -->
+						<h3>Remote Switches & Buttons  -  click to set, view effect on webcam.</h3>
+						<img src="../images/switchbuttons_panel.jpg" width="566" height="120" border="0" usemap="#map" />
+						<map name="map">
+						<!--href="javascript:;" prevents the userclick from going to top of page like href="#" -->
+						<!-- fools browser into thinking there is some java to do instead of reload -->
+						<area shape="rect" coords="29,67,44,97" alt="sw0" href="javascript:;" onclick="var img = new Image(); img.src = 'cgi-bin/printenv.pl'" />
+						 
+						
+						<area shape="rect" coords="65,67,80,97" alt="sw1" href="javascript:;" />
+						<area shape="rect" coords="101,67,116,97" alt="sw2" href="javascript:;" />
+						<area shape="rect" coords="137,67,152,97" alt="sw3" href="javascript:;" />
+						<area shape="rect" coords="173,67,188,97" alt="sw4" href="javascript:;" />
+						<area shape="rect" coords="209,67,224,97" alt="sw5" href="javascript:;" />
+						<area shape="rect" coords="245,67,260,97" alt="sw6" href="javascript:;" />
+						<area shape="rect" coords="281,67,296,97" alt="sw7" href="javascript:;" />
+						<area shape="rect" coords="280,24,295,54" alt="sw8" href="javascript:;" />
+						<area shape="rect" coords="244,24,259,54" alt="sw9" href="javascript:;" />
+						<area shape="rect" coords="208,24,223,54" alt="sw10" href="javascript:;" />
+						<area shape="rect" coords="172,24,187,54" alt="sw11" href="javascript:;" />
+						<area shape="rect" coords="136,24,151,54" alt="sw12" href="javascript:;" />
+						<area shape="rect" coords="100,24,115,54" alt="sw13" href="javascript:;" />
+						<area shape="rect" coords="64,24,79,54" alt="sw14" href="javascript:;" />
+						<area shape="rect" coords="28,24,43,54" alt="sw15" href="javascript:;" />
+						<area shape="rect" coords="536,50,553,67" alt="btn0" href="lnkhere" />
+						<area shape="rect" coords="506,50,523,67" alt="btn1" href="javascript:;" />
+						<area shape="rect" coords="476,50,493,67" alt="btn2" href="javascript:;" />
+						<area shape="rect" coords="446,50,463,67" alt="btn3" href="javascript:;" />
+						<area shape="rect" coords="416,50,433,67" alt="btn4" href="javascript:;" />
+						<area shape="rect" coords="386,50,403,67" alt="btn5" href="javascript:;" />
+						<area shape="rect" coords="356,50,373,66" alt="btn6" href="javascript:;" />
+						<area shape="rect" coords="326,50,343,67" alt="btn7" href="javascript:;" />
+						<area shape="rect" coords="536,24,553,41" alt="btn8" href="javascript:;" />
+						<area shape="rect" coords="506,24,523,41" alt="btn9" href="javascript:;" />
+						<area shape="rect" coords="476,24,493,41" alt="btn10" href="javascript:;" />
+						<area shape="rect" coords="446,24,463,41" alt="btn11" href="javascript:;" />
+						<area shape="rect" coords="416,24,433,41" alt="btn12" href="javascript:;" />
+						<area shape="rect" coords="386,24,403,41" alt="btn13" href="javascript:;" />
+						<area shape="rect" coords="356,24,373,41" alt="btn14" href="javascript:;" />
+						<area shape="rect" coords="326,24,343,40" alt="btn15" href="javascript:;" />
+						<area shape="rect" coords="323,84,410,105" alt="DialogButtonLeft" href="javascript:;" />
+						<area shape="rect" coords="467,84,554,105" alt="dialogbuttonRight" href="javascript:;" />
+						</map>
+						Note: you must include the IOExpansion component in your project to use these.<br/>
+						<br/>
+						<br/>
+						
+
 						
 						
 						<h1>Console</h1>

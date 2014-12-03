@@ -19,7 +19,12 @@ page and access the board at a time.-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
-     window.onload = function () {
+	window.onbeforeunload = confirmExit;
+  function confirmExit()
+  {
+	Ragequit();
+   
+  }
 		
 		<?php 
             //gets new id and current user id from db
@@ -39,7 +44,6 @@ page and access the board at a time.-->
 		}
         ?>   
 		
-	}
 	
 	window.setInterval(function(){
 		var userId = <?php echo $userId ?>;
@@ -58,13 +62,14 @@ page and access the board at a time.-->
 		});
 	}, 3000);
 	
-	window.addEventListener("beforeunload", function (e) {
+	function Ragequit() {
+		var userId = <?php echo $userId ?>;
+		
 		$.ajax({
-			type: 'post',
-			url: '../scripts/baboo',
-			data: {
-				Id: <?php echo $userId ?>
-			}
+			type: "POST",
+			url: '../scripts/baboo.php',
+			dataType:'json',
+			data: ({ userId : userId })
 		});
-	});
+	}
 </script>
